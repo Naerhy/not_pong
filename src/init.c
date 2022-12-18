@@ -4,6 +4,7 @@ int init_game(game_st* game)
 {
 	game->window = NULL;
 	game->renderer = NULL;
+	game->bg_tex = NULL;
 	if (sdl_init(SDL_INIT_VIDEO))
 		return 0;
 	game->window = sdl_create_window("not_pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -14,4 +15,34 @@ int init_game(game_st* game)
 	if (!game->renderer)
 		return 0;
 	return 1;
+}
+
+void create_background_texture(game_st* game)
+{
+	int line_width;
+	sdl_rect rect;
+
+	game->bg_tex = sdl_create_texture(game->renderer, SDL_PIXELFORMAT_RGBA8888,
+			SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH, WINDOW_HEIGHT);
+	// check return error
+	sdl_set_render_target(game->renderer, game->bg_tex);
+	sdl_set_render_draw_color(game->renderer, 0, 0, 0, 255);
+	sdl_render_clear(game->renderer);
+	sdl_set_render_draw_color(game->renderer, 67, 67, 67, 255);
+	line_width = 10;
+	rect = create_rectangle(WINDOW_WIDTH / 2 - line_width / 2, 0, line_width, WINDOW_HEIGHT);
+	sdl_render_fill_rect(game->renderer, &rect);
+	sdl_set_render_target(game->renderer, NULL);
+	game->bg_tex_rect = create_rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+}
+
+sdl_rect create_rectangle(int x, int y, int w, int h)
+{
+	sdl_rect rect;
+
+	rect.x = x;
+	rect.y = y;
+	rect.w = w;
+	rect.h = h;
+	return rect;
 }

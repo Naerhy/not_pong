@@ -7,6 +7,7 @@ int main(void)
 
 	if (!init_game(&game))
 		exit_game("not_pong: unable to initialize the game", &game);
+	create_background_texture(&game); // check return error
 	game_running = 1;
 	while (game_running)
 	{
@@ -17,6 +18,7 @@ int main(void)
 				game_running = 0;
 		}
 		draw_background(&game);
+		sdl_render_present(game.renderer);
 	}
 	exit_game(NULL, &game);
 	return EXIT_SUCCESS;

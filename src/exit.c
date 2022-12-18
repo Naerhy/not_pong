@@ -2,6 +2,8 @@
 
 void exit_game(char const* error_msg, game_st* game)
 {
+	if (game->bg_tex)
+		sdl_destroy_texture(game->bg_tex);
 	if (game->renderer)
 		sdl_destroy_renderer(game->renderer);
 	if (game->window)

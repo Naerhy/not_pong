@@ -17,20 +17,34 @@
 #define sdl_set_render_draw_color(a, b, c, d, e) SDL_SetRenderDrawColor(a, b, c, d, e)
 #define sdl_render_clear(a) SDL_RenderClear(a)
 #define sdl_render_present(a) SDL_RenderPresent(a)
+#define sdl_create_texture(a, b, c, d, e) SDL_CreateTexture(a, b, c, d, e)
+#define sdl_destroy_texture(a) SDL_DestroyTexture(a)
+#define sdl_render_copy(a, b, c, d) SDL_RenderCopy(a, b, c, d)
+#define sdl_set_render_target(a, b) SDL_SetRenderTarget(a, b)
+#define sdl_render_fill_rect(a, b) SDL_RenderFillRect(a, b)
 
 typedef SDL_Window sdl_window;
 typedef SDL_Renderer sdl_renderer;
 typedef SDL_Event sdl_event;
+typedef SDL_Texture sdl_texture;
+typedef SDL_Rect sdl_rect;
 
 typedef struct game_s
 {
 	sdl_window* window;
 	sdl_renderer* renderer;
 	sdl_event events;
+	sdl_texture* bg_tex;
+	sdl_rect bg_tex_rect;
 } game_st;
+
+// draw.c
+void draw_background(game_st* game);
 
 // init.c
 int init_game(game_st* game);
+void create_background_texture(game_st* game);
+sdl_rect create_rectangle(int x, int y, int w, int h);
 
 // exit.c
 void exit_game(char const* error_msg, game_st* game);
