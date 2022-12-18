@@ -13,14 +13,20 @@
 #define sdl_destroy_window(a) SDL_DestroyWindow(a)
 #define sdl_create_renderer(a, b, c) SDL_CreateRenderer(a, b, c)
 #define sdl_destroy_renderer(a) SDL_DestroyRenderer(a)
+#define sdl_poll_event(a) SDL_PollEvent(a)
+#define sdl_set_render_draw_color(a, b, c, d, e) SDL_SetRenderDrawColor(a, b, c, d, e)
+#define sdl_render_clear(a) SDL_RenderClear(a)
+#define sdl_render_present(a) SDL_RenderPresent(a)
 
 typedef SDL_Window sdl_window;
 typedef SDL_Renderer sdl_renderer;
+typedef SDL_Event sdl_event;
 
 typedef struct game_s
 {
 	sdl_window* window;
 	sdl_renderer* renderer;
+	sdl_event events;
 } game_st;
 
 // init.c
