@@ -18,6 +18,7 @@ int main(void)
 				game_running = 0;
 		}
 		draw_background(&game);
+		draw_players(&game);
 		sdl_render_present(game.renderer);
 	}
 	exit_game(NULL, &game);

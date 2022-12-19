@@ -14,7 +14,22 @@ int init_game(game_st* game)
 	game->renderer = sdl_create_renderer(game->window, -1, SDL_RENDERER_ACCELERATED);
 	if (!game->renderer)
 		return 0;
+	init_player(game);
 	return 1;
+}
+
+void init_player(game_st* game)
+{
+	int player_width;
+	int player_height;
+	int start_y;
+
+	player_width = 6;
+	player_height = 60;
+	start_y = WINDOW_HEIGHT / 2 - player_height / 2;
+	game->player_1 = create_rectangle(10, start_y, player_width, player_height);
+	game->player_2 = create_rectangle(WINDOW_WIDTH - 10 - player_width, start_y,
+			player_width, player_height);
 }
 
 void create_background_texture(game_st* game)

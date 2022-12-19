@@ -36,13 +36,17 @@ typedef struct game_s
 	sdl_event events;
 	sdl_texture* bg_tex;
 	sdl_rect bg_tex_rect;
+	sdl_rect player_1;
+	sdl_rect player_2;
 } game_st;
 
 // draw.c
 void draw_background(game_st* game);
+void draw_players(game_st* game);
 
 // init.c
 int init_game(game_st* game);
+void init_player(game_st* game);
 void create_background_texture(game_st* game);
 sdl_rect create_rectangle(int x, int y, int w, int h);
 
