@@ -20,6 +20,7 @@ int init_game(game_st* game)
 void create_background_texture(game_st* game)
 {
 	int line_width;
+	int space;
 	sdl_rect rect;
 
 	game->bg_tex = sdl_create_texture(game->renderer, SDL_PIXELFORMAT_RGBA8888,
@@ -29,9 +30,18 @@ void create_background_texture(game_st* game)
 	sdl_set_render_draw_color(game->renderer, 0, 0, 0, 255);
 	sdl_render_clear(game->renderer);
 	sdl_set_render_draw_color(game->renderer, 67, 67, 67, 255);
-	line_width = 10;
-	rect = create_rectangle(WINDOW_WIDTH / 2 - line_width / 2, 0, line_width, WINDOW_HEIGHT);
-	sdl_render_fill_rect(game->renderer, &rect);
+	line_width = 5;
+	space = 40;
+	for (int y = 0; y < WINDOW_HEIGHT; y++)
+	{
+		if (y % 2 == 1)
+		{
+			rect = create_rectangle(WINDOW_WIDTH / 2 - line_width / 2, y * space, line_width, space);
+			sdl_render_fill_rect(game->renderer, &rect);
+		}
+	}
+	// rect = create_rectangle(WINDOW_WIDTH / 2 - line_width / 2, 0, line_width, WINDOW_HEIGHT);
+	// sdl_render_fill_rect(game->renderer, &rect);
 	sdl_set_render_target(game->renderer, NULL);
 	game->bg_tex_rect = create_rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 }
