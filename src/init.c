@@ -24,7 +24,7 @@ void init_player(game_st* game)
 	game->player_1.height = 60;
 	game->player_1.speed = 200;
 	game->player_1.direction = 0;
-	game->player_1.x = 10;
+	game->player_1.x = MARGIN;
 	game->player_1.y = WINDOW_HEIGHT / 2 - game->player_1.height / 2;
 }
 

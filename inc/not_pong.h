@@ -6,6 +6,7 @@
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
+#define MARGIN 10
 
 #define sdl_init(a) SDL_Init(a)
 #define sdl_quit() SDL_Quit()
