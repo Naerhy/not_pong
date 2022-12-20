@@ -30,6 +30,8 @@ void init_player(game_st* game)
 	game->player_1 = create_rectangle(10, start_y, player_width, player_height);
 	game->player_2 = create_rectangle(WINDOW_WIDTH - 10 - player_width, start_y,
 			player_width, player_height);
+	game->player_1_direction = 0;
+	game->player_speed = 1;
 }
 
 void create_background_texture(game_st* game)

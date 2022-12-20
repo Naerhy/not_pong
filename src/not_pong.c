@@ -16,7 +16,12 @@ int main(void)
 			if (game.events.type == SDL_QUIT || (game.events.type == SDL_KEYDOWN
 					&& game.events.key.keysym.scancode == SDL_SCANCODE_ESCAPE))
 				game_running = 0;
+			if (game.events.type == SDL_KEYDOWN)
+				handle_keys_down(&game);
+			if (game.events.type == SDL_KEYUP)
+				handle_keys_up(&game);
 		}
+		update_player_pos(&game);
 		draw_background(&game);
 		draw_players(&game);
 		sdl_render_present(game.renderer);
