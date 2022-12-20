@@ -31,15 +31,16 @@ typedef SDL_Event sdl_event;
 typedef SDL_Texture sdl_texture;
 typedef SDL_Rect sdl_rect;
 
-typedef struct player_s
+typedef struct entity_s
 {
 	int width;
 	int height;
 	int speed;
-	int direction;
 	float x;
 	float y;
-} player_st;
+	float dx;
+	float dy;
+} entity_st;
 
 typedef struct game_s
 {
@@ -48,7 +49,7 @@ typedef struct game_s
 	sdl_event events;
 	sdl_texture* bg_tex;
 	sdl_rect bg_tex_rect;
-	player_st player_1;
+	entity_st player_1;
 } game_st;
 
 // draw.c
