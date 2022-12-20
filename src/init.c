@@ -20,18 +20,12 @@ int init_game(game_st* game)
 
 void init_player(game_st* game)
 {
-	int player_width;
-	int player_height;
-	int start_y;
-
-	player_width = 6;
-	player_height = 60;
-	start_y = WINDOW_HEIGHT / 2 - player_height / 2;
-	game->player_1 = create_rectangle(10, start_y, player_width, player_height);
-	game->player_2 = create_rectangle(WINDOW_WIDTH - 10 - player_width, start_y,
-			player_width, player_height);
-	game->player_1_direction = 0;
-	game->player_speed = 1;
+	game->player_1.width = 6;
+	game->player_1.height = 60;
+	game->player_1.speed = 200;
+	game->player_1.direction = 0;
+	game->player_1.x = 10;
+	game->player_1.y = WINDOW_HEIGHT / 2 - game->player_1.height / 2;
 }
 
 void create_background_texture(game_st* game)

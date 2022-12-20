@@ -22,12 +22,23 @@
 #define sdl_render_copy(a, b, c, d) SDL_RenderCopy(a, b, c, d)
 #define sdl_set_render_target(a, b) SDL_SetRenderTarget(a, b)
 #define sdl_render_fill_rect(a, b) SDL_RenderFillRect(a, b)
+#define sdl_get_ticks() SDL_GetTicks()
 
 typedef SDL_Window sdl_window;
 typedef SDL_Renderer sdl_renderer;
 typedef SDL_Event sdl_event;
 typedef SDL_Texture sdl_texture;
 typedef SDL_Rect sdl_rect;
+
+typedef struct player_s
+{
+	int width;
+	int height;
+	int speed;
+	int direction;
+	float x;
+	float y;
+} player_st;
 
 typedef struct game_s
 {
@@ -36,10 +47,7 @@ typedef struct game_s
 	sdl_event events;
 	sdl_texture* bg_tex;
 	sdl_rect bg_tex_rect;
-	sdl_rect player_1;
-	sdl_rect player_2;
-	int player_1_direction;
-	int player_speed;
+	player_st player_1;
 } game_st;
 
 // draw.c
@@ -60,6 +68,6 @@ void handle_keys_down(game_st* game);
 void handle_keys_up(game_st* game);
 
 // update.c
-void update_player_pos(game_st* game);
+void update_player_pos(game_st* game, float delta);
 
 #endif

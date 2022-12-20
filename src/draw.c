@@ -9,7 +9,10 @@ void draw_background(game_st* game)
 
 void draw_players(game_st* game)
 {
+	sdl_rect rect;
+
+	rect = create_rectangle(game->player_1.x, game->player_1.y, game->player_1.width,
+			game->player_1.height);
 	sdl_set_render_draw_color(game->renderer, 67, 67, 67, 255);
-	sdl_render_fill_rect(game->renderer, &game->player_1);
-	sdl_render_fill_rect(game->renderer, &game->player_2);
+	sdl_render_fill_rect(game->renderer, &rect);
 }
