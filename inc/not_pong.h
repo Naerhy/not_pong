@@ -31,6 +31,12 @@ typedef SDL_Event sdl_event;
 typedef SDL_Texture sdl_texture;
 typedef SDL_Rect sdl_rect;
 
+typedef enum entity_name_e
+{
+	BALL,
+	PLAYER
+} entity_name_et;
+
 typedef struct entity_s
 {
 	int width;
@@ -40,6 +46,7 @@ typedef struct entity_s
 	float y;
 	float dx;
 	float dy;
+	// sdl_rect rect;
 } entity_st;
 
 typedef struct game_s
@@ -49,31 +56,29 @@ typedef struct game_s
 	sdl_event events;
 	sdl_texture* bg_tex;
 	sdl_rect bg_tex_rect;
-	entity_st player_1;
+	entity_st player;
 	entity_st ball;
 } game_st;
 
 // draw.c
 void draw_background(game_st* game);
-void draw_players(game_st* game);
-void draw_ball(game_st* game);
+void draw_entity(sdl_renderer* renderer, entity_st* entity);
 
 // exit.c
 void exit_game(char const* error_msg, game_st* game);
 
 // init.c
 int init_game(game_st* game);
-void init_player(game_st* game);
-void init_ball(game_st* game);
+entity_st create_entity(entity_name_et name);
 void create_background_texture(game_st* game);
 sdl_rect create_rectangle(int x, int y, int w, int h);
 
 // input.c
-void handle_keys_down(game_st* game);
-void handle_keys_up(game_st* game);
+void handle_keys_down(sdl_event* events, entity_st* player);
+void handle_keys_up(sdl_event* events, entity_st* player);
 
 // update.c
-void update_player_pos(game_st* game, float delta);
-void update_ball_pos(game_st* game, float delta);
+void update_player(entity_st* player, float delta);
+void update_ball(entity_st* ball, entity_st* player, float delta);
 
 #endif

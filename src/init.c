@@ -14,31 +14,36 @@ int init_game(game_st* game)
 	game->renderer = sdl_create_renderer(game->window, -1, SDL_RENDERER_ACCELERATED);
 	if (!game->renderer)
 		return 0;
-	init_player(game);
-	init_ball(game);
+	game->player = create_entity(PLAYER);
+	game->ball = create_entity(BALL);
 	return 1;
 }
 
-void init_player(game_st* game)
+entity_st create_entity(entity_name_et name)
 {
-	game->player_1.width = 6;
-	game->player_1.height = 60;
-	game->player_1.speed = 200;
-	game->player_1.x = MARGIN;
-	game->player_1.y = WINDOW_HEIGHT / 2 - game->player_1.height / 2;
-	game->player_1.dx = 0;
-	game->player_1.dy = 0;
-}
+	entity_st entity;
 
-void init_ball(game_st* game)
-{
-	game->ball.width = 10;
-	game->ball.height = 10;
-	game->ball.speed = 200;
-	game->ball.x = WINDOW_WIDTH / 2 - game->ball.width / 2;
-	game->ball.y = WINDOW_HEIGHT / 2 - game->ball.height / 2;
-	game->ball.dx = -1;
-	game->ball.dy = 0.5;
+	if (name == PLAYER)
+	{
+		entity.width = 6;
+		entity.height = 60;
+		entity.speed = 200;
+		entity.x = MARGIN;
+		entity.y = WINDOW_HEIGHT / 2 - entity.height / 2;
+		entity.dx = 0;
+		entity.dy = 0;
+	}
+	else
+	{
+		entity.width = 10;
+		entity.height = 10;
+		entity.speed = 250;
+		entity.x = WINDOW_WIDTH / 2 - entity.width / 2;
+		entity.y = WINDOW_HEIGHT / 2 - entity.height / 2;
+		entity.dx = -1;
+		entity.dy = 0;
+	}
+	return entity;
 }
 
 void create_background_texture(game_st* game)

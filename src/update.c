@@ -1,16 +1,15 @@
 #include "not_pong.h"
 
-void update_player_pos(game_st* game, float delta)
+void update_player(entity_st* player, float delta)
 {
 	float previous_pos_y;
 
-	previous_pos_y = game->player_1.y;
-	if (game->player_1.dy)
-		game->player_1.y += game->player_1.dy * (game->player_1.speed * delta);
+	previous_pos_y = player->y;
+	if (player->dy)
+		player->y += player->dy * (player->speed * delta);
 
-	if (game->player_1.y < MARGIN
-			|| game->player_1.y > WINDOW_HEIGHT - MARGIN - game->player_1.height)
-		game->player_1.y = previous_pos_y;
+	if (player->y < MARGIN || player->y > WINDOW_HEIGHT - MARGIN - player->height)
+		player->y = previous_pos_y;
 }
 
 static int check_collision(entity_st* ent_1, entity_st* ent_2)
@@ -21,29 +20,28 @@ static int check_collision(entity_st* ent_1, entity_st* ent_2)
 	return 0;
 }
 
-void update_ball_pos(game_st* game, float delta)
+void update_ball(entity_st* ball, entity_st* player, float delta)
 {
 	float previous_pos_x;
 	float previous_pos_y;
 
-	previous_pos_x = game->ball.x;
-	previous_pos_y = game->ball.y;
-	game->ball.x += game->ball.dx * (game->ball.speed * delta);
-	game->ball.y += game->ball.dy * (game->ball.speed * delta);
-	if (game->ball.y < MARGIN
-			|| game->ball.y > WINDOW_HEIGHT - MARGIN - game->ball.height)
+	previous_pos_x = ball->x;
+	previous_pos_y = ball->y;
+	ball->x += ball->dx * (ball->speed * delta);
+	ball->y += ball->dy * (ball->speed * delta);
+	if (ball->y < MARGIN || ball->y > WINDOW_HEIGHT - MARGIN - ball->height)
 	{
-		game->ball.y = previous_pos_y;
-		game->ball.dy = -game->ball.dy;
+		ball->y = previous_pos_y;
+		ball->dy = -ball->dy;
 	}
 
-	if (check_collision(&game->player_1, &game->ball))
+	if (check_collision(player, ball))
 	{
-		if (game->ball.y < game->player_1.y + game->player_1.height / 2)
-			game->ball.dy = -1;
+		if (ball->y < player->y + player->height / 2)
+			ball->dy = -1;
 		else
-			game->ball.dy = 1;
-		game->ball.x = previous_pos_x;
-		game->ball.dx = -game->ball.dx;
+			ball->dy = 1;
+		ball->x = previous_pos_x;
+		ball->dx = -ball->dx;
 	}
 }

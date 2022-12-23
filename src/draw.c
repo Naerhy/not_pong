@@ -7,21 +7,11 @@ void draw_background(game_st* game)
 	sdl_render_copy(game->renderer, game->bg_tex, NULL, &game->bg_tex_rect);
 }
 
-void draw_players(game_st* game)
+void draw_entity(sdl_renderer* renderer, entity_st* entity)
 {
 	sdl_rect rect;
 
-	rect = create_rectangle(game->player_1.x, game->player_1.y, game->player_1.width,
-			game->player_1.height);
-	sdl_set_render_draw_color(game->renderer, 67, 67, 67, 255);
-	sdl_render_fill_rect(game->renderer, &rect);
-}
-
-void draw_ball(game_st* game)
-{
-	sdl_rect rect;
-
-	rect = create_rectangle(game->ball.x, game->ball.y, game->ball.width, game->ball.height);
-	sdl_set_render_draw_color(game->renderer, 67, 67, 67, 255);
-	sdl_render_fill_rect(game->renderer, &rect);
+	rect = create_rectangle(entity->x, entity->y, entity->width, entity->height);
+	sdl_set_render_draw_color(renderer, 67, 67, 67, 255);
+	sdl_render_fill_rect(renderer, &rect);
 }
