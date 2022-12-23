@@ -16,3 +16,12 @@ void draw_players(game_st* game)
 	sdl_set_render_draw_color(game->renderer, 67, 67, 67, 255);
 	sdl_render_fill_rect(game->renderer, &rect);
 }
+
+void draw_ball(game_st* game)
+{
+	sdl_rect rect;
+
+	rect = create_rectangle(game->ball.x, game->ball.y, game->ball.width, game->ball.height);
+	sdl_set_render_draw_color(game->renderer, 67, 67, 67, 255);
+	sdl_render_fill_rect(game->renderer, &rect);
+}

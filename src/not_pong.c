@@ -29,8 +29,10 @@ int main(void)
 				handle_keys_up(&game);
 		}
 		update_player_pos(&game, (float)delta / 1000);
+		update_ball_pos(&game, (float)delta / 1000);
 		draw_background(&game);
 		draw_players(&game);
+		draw_ball(&game);
 		sdl_render_present(game.renderer);
 	}
 	exit_game(NULL, &game);

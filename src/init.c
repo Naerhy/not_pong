@@ -15,6 +15,7 @@ int init_game(game_st* game)
 	if (!game->renderer)
 		return 0;
 	init_player(game);
+	init_ball(game);
 	return 1;
 }
 
@@ -27,6 +28,17 @@ void init_player(game_st* game)
 	game->player_1.y = WINDOW_HEIGHT / 2 - game->player_1.height / 2;
 	game->player_1.dx = 0;
 	game->player_1.dy = 0;
+}
+
+void init_ball(game_st* game)
+{
+	game->ball.width = 10;
+	game->ball.height = 10;
+	game->ball.speed = 200;
+	game->ball.x = WINDOW_WIDTH / 2 - game->ball.width / 2;
+	game->ball.y = WINDOW_HEIGHT / 2 - game->ball.height / 2;
+	game->ball.dx = -1;
+	game->ball.dy = 0.5;
 }
 
 void create_background_texture(game_st* game)

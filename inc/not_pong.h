@@ -50,11 +50,13 @@ typedef struct game_s
 	sdl_texture* bg_tex;
 	sdl_rect bg_tex_rect;
 	entity_st player_1;
+	entity_st ball;
 } game_st;
 
 // draw.c
 void draw_background(game_st* game);
 void draw_players(game_st* game);
+void draw_ball(game_st* game);
 
 // exit.c
 void exit_game(char const* error_msg, game_st* game);
@@ -62,6 +64,7 @@ void exit_game(char const* error_msg, game_st* game);
 // init.c
 int init_game(game_st* game);
 void init_player(game_st* game);
+void init_ball(game_st* game);
 void create_background_texture(game_st* game);
 sdl_rect create_rectangle(int x, int y, int w, int h);
 
@@ -71,5 +74,6 @@ void handle_keys_up(game_st* game);
 
 // update.c
 void update_player_pos(game_st* game, float delta);
+void update_ball_pos(game_st* game, float delta);
 
 #endif
