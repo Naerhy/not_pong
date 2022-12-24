@@ -34,6 +34,7 @@ typedef SDL_Rect sdl_rect;
 typedef enum entity_name_e
 {
 	BALL,
+	OPPONENT,
 	PLAYER
 } entity_name_et;
 
@@ -57,6 +58,7 @@ typedef struct game_s
 	sdl_texture* bg_tex;
 	sdl_rect bg_tex_rect;
 	entity_st player;
+	entity_st opponent;
 	entity_st ball;
 } game_st;
 
@@ -79,6 +81,7 @@ void handle_keys_up(sdl_event* events, entity_st* player);
 
 // update.c
 void update_player(entity_st* player, float delta);
-void update_ball(entity_st* ball, entity_st* player, float delta);
+void update_opponent(entity_st* opponent, entity_st* ball, float delta);
+void update_ball(entity_st* ball, entity_st* player, entity_st* opponent, float delta);
 
 #endif

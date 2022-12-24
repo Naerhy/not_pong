@@ -15,6 +15,7 @@ int init_game(game_st* game)
 	if (!game->renderer)
 		return 0;
 	game->player = create_entity(PLAYER);
+	game->opponent = create_entity(OPPONENT);
 	game->ball = create_entity(BALL);
 	return 1;
 }
@@ -33,11 +34,21 @@ entity_st create_entity(entity_name_et name)
 		entity.dx = 0;
 		entity.dy = 0;
 	}
+	else if (name == OPPONENT)
+	{
+		entity.width = 6;
+		entity.height = 60;
+		entity.speed = 200;
+		entity.x = WINDOW_WIDTH - MARGIN - entity.width;
+		entity.y = WINDOW_HEIGHT / 2 - entity.height / 2;
+		entity.dx = 0;
+		entity.dy = 0;
+	}
 	else
 	{
 		entity.width = 10;
 		entity.height = 10;
-		entity.speed = 250;
+		entity.speed = 200;
 		entity.x = WINDOW_WIDTH / 2 - entity.width / 2;
 		entity.y = WINDOW_HEIGHT / 2 - entity.height / 2;
 		entity.dx = -1;
