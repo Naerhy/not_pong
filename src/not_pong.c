@@ -1,5 +1,13 @@
 #include "not_pong.h"
 
+/*
+
+   to improve:
+   - add sdl_rect to entity_st -> no need to create new rectangle for every draw()
+   - improve AI -> add randomness
+
+*/
+
 int main(void)
 {
 	game_st game;

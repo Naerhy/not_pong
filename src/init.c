@@ -80,8 +80,10 @@ void create_background_texture(game_st* game)
 			sdl_render_fill_rect(game->renderer, &rect);
 		}
 	}
-	// rect = create_rectangle(WINDOW_WIDTH / 2 - line_width / 2, 0, line_width, WINDOW_HEIGHT);
-	// sdl_render_fill_rect(game->renderer, &rect);
+	rect = create_rectangle(0, 0, WINDOW_WIDTH, MARGIN);
+	sdl_render_fill_rect(game->renderer, &rect);
+	rect = create_rectangle(0, WINDOW_HEIGHT - MARGIN, WINDOW_WIDTH, MARGIN);
+	sdl_render_fill_rect(game->renderer, &rect);
 	sdl_set_render_target(game->renderer, NULL);
 	game->bg_tex_rect = create_rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 }
