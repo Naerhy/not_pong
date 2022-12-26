@@ -31,12 +31,12 @@ typedef SDL_Event sdl_event;
 typedef SDL_Texture sdl_texture;
 typedef SDL_Rect sdl_rect;
 
-typedef enum entity_name_e
+typedef enum entity_type_e
 {
 	BALL,
-	OPPONENT,
-	PLAYER
-} entity_name_et;
+	PLAYER1,
+	PLAYER2
+} entity_type_et;
 
 typedef struct entity_s
 {
@@ -57,8 +57,8 @@ typedef struct game_s
 	sdl_event events;
 	sdl_texture* bg_tex;
 	sdl_rect bg_tex_rect;
-	entity_st player;
-	entity_st opponent;
+	entity_st player1;
+	entity_st player2;
 	entity_st ball;
 } game_st;
 
@@ -71,17 +71,16 @@ void exit_game(char const* error_msg, game_st* game);
 
 // init.c
 int init_game(game_st* game);
-entity_st create_entity(entity_name_et name);
+entity_st create_entity(entity_type_et name);
 void create_background_texture(game_st* game);
 sdl_rect create_rectangle(int x, int y, int w, int h);
 
 // input.c
-void handle_keys_down(sdl_event* events, entity_st* player);
-void handle_keys_up(sdl_event* events, entity_st* player);
+void handle_keys_down(sdl_event* events, entity_st* player1, entity_st* player2);
+void handle_keys_up(sdl_event* events, entity_st* player1, entity_st* player2);
 
 // update.c
 void update_player(entity_st* player, float delta);
-void update_opponent(entity_st* opponent, entity_st* ball, float delta);
 void update_ball(entity_st* ball, entity_st* player, entity_st* opponent, float delta);
 
 #endif

@@ -14,17 +14,17 @@ int init_game(game_st* game)
 	game->renderer = sdl_create_renderer(game->window, -1, SDL_RENDERER_ACCELERATED);
 	if (!game->renderer)
 		return 0;
-	game->player = create_entity(PLAYER);
-	game->opponent = create_entity(OPPONENT);
+	game->player1 = create_entity(PLAYER1);
+	game->player2 = create_entity(PLAYER2);
 	game->ball = create_entity(BALL);
 	return 1;
 }
 
-entity_st create_entity(entity_name_et name)
+entity_st create_entity(entity_type_et type)
 {
 	entity_st entity;
 
-	if (name == PLAYER)
+	if (type == PLAYER1)
 	{
 		entity.width = 6;
 		entity.height = 60;
@@ -34,7 +34,7 @@ entity_st create_entity(entity_name_et name)
 		entity.dx = 0;
 		entity.dy = 0;
 	}
-	else if (name == OPPONENT)
+	else if (type == PLAYER2)
 	{
 		entity.width = 6;
 		entity.height = 60;

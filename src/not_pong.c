@@ -3,8 +3,10 @@
 /*
 
    to improve:
+   - use array [2] to store players infos [?]
+   - add menus and UI
    - add sdl_rect to entity_st -> no need to create new rectangle for every draw()
-   - improve AI -> add randomness
+   - in the future, add AI as opponent
 
 */
 
@@ -32,16 +34,16 @@ int main(void)
 					&& game.events.key.keysym.scancode == SDL_SCANCODE_ESCAPE))
 				game_running = 0;
 			if (game.events.type == SDL_KEYDOWN)
-				handle_keys_down(&game.events, &game.player);
+				handle_keys_down(&game.events, &game.player1, &game.player2);
 			if (game.events.type == SDL_KEYUP)
-				handle_keys_up(&game.events, &game.player);
+				handle_keys_up(&game.events, &game.player1, &game.player2);
 		}
-		update_player(&game.player, (float)delta / 1000);
-		update_opponent(&game.opponent, &game.ball, (float)delta / 1000);
-		update_ball(&game.ball, &game.player, &game.opponent, (float)delta / 1000);
+		update_player(&game.player1, (float)delta / 1000);
+		update_player(&game.player2, (float)delta / 1000);
+		update_ball(&game.ball, &game.player1, &game.player2, (float)delta / 1000);
 		draw_background(&game);
-		draw_entity(game.renderer, &game.player);
-		draw_entity(game.renderer, &game.opponent);
+		draw_entity(game.renderer, &game.player1);
+		draw_entity(game.renderer, &game.player2);
 		draw_entity(game.renderer, &game.ball);
 		sdl_render_present(game.renderer);
 	}

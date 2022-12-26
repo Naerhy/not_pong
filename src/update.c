@@ -12,19 +12,6 @@ void update_player(entity_st* player, float delta)
 		player->y = previous_pos_y;
 }
 
-void update_opponent(entity_st* opponent, entity_st* ball, float delta)
-{
-	float opponent_center_y;
-	float ball_center_y;
-
-	opponent_center_y = opponent->y + (opponent->height / 2);
-	ball_center_y = ball->y + (ball->height / 2);
-	if (ball_center_y < opponent_center_y)
-		opponent->y -= (opponent->speed * delta);
-	else
-		opponent->y += (opponent->speed * delta);
-}
-
 static int check_collision(entity_st* ent_1, entity_st* ent_2)
 {
 	if (ent_1->x < ent_2->x + ent_2->width && ent_1->x + ent_1->width > ent_2->x
@@ -33,10 +20,26 @@ static int check_collision(entity_st* ent_1, entity_st* ent_2)
 	return 0;
 }
 
-void update_ball(entity_st* ball, entity_st* player, entity_st* opponent, float delta)
+static int get_ball_impact_pos(entity_st* ball, entity_st* player)
+{
+	size_t i;
+	float split_size;
+
+	split_size = player->height / 5;
+	for (i = 1; i <= 5; i++)
+	{
+		if (ball->y <= player->y + split_size * i
+				|| ball->y + ball->height <= player->y + split_size * i)
+			break;
+	}
+	return i;
+}
+
+void update_ball(entity_st* ball, entity_st* player1, entity_st* player2, float delta)
 {
 	float previous_pos_x;
 	float previous_pos_y;
+	int ball_impact;
 
 	previous_pos_x = ball->x;
 	previous_pos_y = ball->y;
@@ -47,19 +50,33 @@ void update_ball(entity_st* ball, entity_st* player, entity_st* opponent, float 
 		ball->y = previous_pos_y;
 		ball->dy = -ball->dy;
 	}
-	if (check_collision(player, ball))
+	if (check_collision(player1, ball))
 	{
-		if (ball->y < player->y + player->height / 2)
+		ball_impact = get_ball_impact_pos(ball, player1);
+		if (ball_impact == 1)
 			ball->dy = -1;
+		else if (ball_impact == 2)
+			ball->dy = -0.5;
+		else if (ball_impact == 3)
+			ball->dy = 0;
+		else if (ball_impact == 4)
+			ball->dy = 0.5;
 		else
 			ball->dy = 1;
 		ball->x = previous_pos_x;
 		ball->dx = -ball->dx;
 	}
-	if (check_collision(opponent, ball))
+	if (check_collision(player2, ball))
 	{
-		if (ball->y < opponent->y + opponent->height / 2)
+		ball_impact = get_ball_impact_pos(ball, player2);
+		if (ball_impact == 1)
 			ball->dy = -1;
+		else if (ball_impact == 2)
+			ball->dy = -0.5;
+		else if (ball_impact == 3)
+			ball->dy = 0;
+		else if (ball_impact == 4)
+			ball->dy = 0.5;
 		else
 			ball->dy = 1;
 		ball->x = previous_pos_x;
