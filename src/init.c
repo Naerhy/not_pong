@@ -24,23 +24,21 @@ entity_st create_entity(entity_type_et type)
 {
 	entity_st entity;
 
-	if (type == PLAYER1)
+	if (type == PLAYER1 || type == PLAYER2)
 	{
 		entity.width = 6;
 		entity.height = 60;
 		entity.speed = 200;
-		entity.x = MARGIN;
-		entity.y = WINDOW_HEIGHT / 2 - entity.height / 2;
-		entity.dx = 0;
-		entity.dy = 0;
-	}
-	else if (type == PLAYER2)
-	{
-		entity.width = 6;
-		entity.height = 60;
-		entity.speed = 200;
-		entity.x = WINDOW_WIDTH - MARGIN - entity.width;
-		entity.y = WINDOW_HEIGHT / 2 - entity.height / 2;
+		if (type == PLAYER1)
+		{
+			entity.x = MARGIN;
+			entity.y = WINDOW_HEIGHT / 2 - entity.height / 2;
+		}
+		else
+		{
+			entity.x = WINDOW_WIDTH - MARGIN - entity.width;
+			entity.y = WINDOW_HEIGHT / 2 - entity.height / 2;
+		}
 		entity.dx = 0;
 		entity.dy = 0;
 	}
