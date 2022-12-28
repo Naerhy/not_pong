@@ -83,6 +83,6 @@ void update_ball(entity_st* ball, entity_st* player1, entity_st* player2, float 
 		ball->x = previous_pos_x;
 		ball->dx = -ball->dx;
 	}
-	ball->rect.x = ball->x;
-	ball->rect.y = ball->y;
+	ball->rect.x = (int)ball->x;
+	ball->rect.y = (int)ball->y;
 }
