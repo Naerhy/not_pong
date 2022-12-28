@@ -47,7 +47,7 @@ typedef struct entity_s
 	float y;
 	float dx;
 	float dy;
-	// sdl_rect rect;
+	sdl_rect rect;
 } entity_st;
 
 typedef struct game_s
@@ -63,8 +63,7 @@ typedef struct game_s
 } game_st;
 
 // draw.c
-void draw_background(game_st* game);
-void draw_entity(sdl_renderer* renderer, entity_st* entity);
+void draw_frame(game_st* game);
 
 // exit.c
 void exit_game(char const* error_msg, game_st* game);

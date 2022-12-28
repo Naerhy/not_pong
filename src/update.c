@@ -10,6 +10,7 @@ void update_player(entity_st* player, float delta)
 
 	if (player->y < MARGIN || player->y > WINDOW_HEIGHT - MARGIN - player->height)
 		player->y = previous_pos_y;
+	player->rect.y = (int)player->y;
 }
 
 static int check_collision(entity_st* ent_1, entity_st* ent_2)
@@ -82,4 +83,6 @@ void update_ball(entity_st* ball, entity_st* player1, entity_st* player2, float 
 		ball->x = previous_pos_x;
 		ball->dx = -ball->dx;
 	}
+	ball->rect.x = ball->x;
+	ball->rect.y = ball->y;
 }

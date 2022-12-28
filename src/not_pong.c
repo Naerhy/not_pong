@@ -41,10 +41,7 @@ int main(void)
 		update_player(&game.player1, (float)delta / 1000);
 		update_player(&game.player2, (float)delta / 1000);
 		update_ball(&game.ball, &game.player1, &game.player2, (float)delta / 1000);
-		draw_background(&game);
-		draw_entity(game.renderer, &game.player1);
-		draw_entity(game.renderer, &game.player2);
-		draw_entity(game.renderer, &game.ball);
+		draw_frame(&game);
 		sdl_render_present(game.renderer);
 	}
 	exit_game(NULL, &game);

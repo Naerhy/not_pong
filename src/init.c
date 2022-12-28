@@ -52,6 +52,7 @@ entity_st create_entity(entity_type_et type)
 		entity.dx = -1;
 		entity.dy = 0;
 	}
+	entity.rect = create_rectangle(entity.x, entity.y, entity.width, entity.height);
 	return entity;
 }
 
