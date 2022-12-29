@@ -1,5 +1,16 @@
 #include "not_pong.h"
 
+static int check_collision(entity_st* ent_1, entity_st* ent_2);
+static int get_ball_impact_pos(entity_st* ball, entity_st* player);
+static float get_dy_from_impact(int impact_pos);
+
+void update_entities(entity_st* player1, entity_st* player2, entity_st* ball, float delta)
+{
+	update_player(player1, delta);
+	update_player(player2, delta);
+	update_ball(ball, player1, player2, delta);
+}
+
 void update_player(entity_st* player, float delta)
 {
 	float previous_pos_y;
@@ -11,6 +22,36 @@ void update_player(entity_st* player, float delta)
 	if (player->y < MARGIN || player->y > WINDOW_HEIGHT - MARGIN - player->height)
 		player->y = previous_pos_y;
 	player->rect.y = (int)player->y;
+}
+
+void update_ball(entity_st* ball, entity_st* player1, entity_st* player2, float delta)
+{
+	float previous_pos_x;
+	float previous_pos_y;
+
+	previous_pos_x = ball->x;
+	previous_pos_y = ball->y;
+	ball->x += ball->dx * (ball->speed * delta);
+	ball->y += ball->dy * (ball->speed * delta);
+	if (ball->y < MARGIN || ball->y > WINDOW_HEIGHT - MARGIN - ball->height)
+	{
+		ball->y = previous_pos_y;
+		ball->dy = -ball->dy;
+	}
+	if (check_collision(player1, ball))
+	{
+		ball->dy = get_dy_from_impact(get_ball_impact_pos(ball, player1));
+		ball->x = previous_pos_x;
+		ball->dx = -ball->dx;
+	}
+	if (check_collision(player2, ball))
+	{
+		ball->dy = get_dy_from_impact(get_ball_impact_pos(ball, player2));
+		ball->x = previous_pos_x;
+		ball->dx = -ball->dx;
+	}
+	ball->rect.x = (int)ball->x;
+	ball->rect.y = (int)ball->y;
 }
 
 static int check_collision(entity_st* ent_1, entity_st* ent_2)
@@ -36,53 +77,19 @@ static int get_ball_impact_pos(entity_st* ball, entity_st* player)
 	return i;
 }
 
-void update_ball(entity_st* ball, entity_st* player1, entity_st* player2, float delta)
+static float get_dy_from_impact(int impact_pos)
 {
-	float previous_pos_x;
-	float previous_pos_y;
-	int ball_impact;
+	float dy;
 
-	previous_pos_x = ball->x;
-	previous_pos_y = ball->y;
-	ball->x += ball->dx * (ball->speed * delta);
-	ball->y += ball->dy * (ball->speed * delta);
-	if (ball->y < MARGIN || ball->y > WINDOW_HEIGHT - MARGIN - ball->height)
-	{
-		ball->y = previous_pos_y;
-		ball->dy = -ball->dy;
-	}
-	if (check_collision(player1, ball))
-	{
-		ball_impact = get_ball_impact_pos(ball, player1);
-		if (ball_impact == 1)
-			ball->dy = -1;
-		else if (ball_impact == 2)
-			ball->dy = -0.5;
-		else if (ball_impact == 3)
-			ball->dy = 0;
-		else if (ball_impact == 4)
-			ball->dy = 0.5;
-		else
-			ball->dy = 1;
-		ball->x = previous_pos_x;
-		ball->dx = -ball->dx;
-	}
-	if (check_collision(player2, ball))
-	{
-		ball_impact = get_ball_impact_pos(ball, player2);
-		if (ball_impact == 1)
-			ball->dy = -1;
-		else if (ball_impact == 2)
-			ball->dy = -0.5;
-		else if (ball_impact == 3)
-			ball->dy = 0;
-		else if (ball_impact == 4)
-			ball->dy = 0.5;
-		else
-			ball->dy = 1;
-		ball->x = previous_pos_x;
-		ball->dx = -ball->dx;
-	}
-	ball->rect.x = (int)ball->x;
-	ball->rect.y = (int)ball->y;
+	if (impact_pos == 1)
+		dy = -1;
+	else if (impact_pos == 2)
+		dy = -0.5;
+	else if (impact_pos == 3)
+		dy = 0;
+	else if (impact_pos == 4)
+		dy = 0.5;
+	else
+		dy = 1;
+	return dy;
 }

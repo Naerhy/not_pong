@@ -79,6 +79,7 @@ void handle_keys_down(sdl_event* events, entity_st* player1, entity_st* player2)
 void handle_keys_up(sdl_event* events, entity_st* player1, entity_st* player2);
 
 // update.c
+void update_entities(entity_st* player1, entity_st* player2, entity_st* ball, float delta);
 void update_player(entity_st* player, float delta);
 void update_ball(entity_st* ball, entity_st* player, entity_st* opponent, float delta);
 

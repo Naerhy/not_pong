@@ -38,9 +38,7 @@ int main(void)
 			if (game.events.type == SDL_KEYUP)
 				handle_keys_up(&game.events, &game.player1, &game.player2);
 		}
-		update_player(&game.player1, (float)delta / 1000);
-		update_player(&game.player2, (float)delta / 1000);
-		update_ball(&game.ball, &game.player1, &game.player2, (float)delta / 1000);
+		update_entities(&game.player1, &game.player2, &game.ball, (float)delta / 1000);
 		draw_frame(&game);
 		sdl_render_present(game.renderer);
 	}
