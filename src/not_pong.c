@@ -5,8 +5,8 @@
    to improve:
    - use array [2] to store players infos [?]
    - add menus and UI
-   - add sdl_rect to entity_st -> no need to create new rectangle for every draw()
    - in the future, add AI as opponent
+   - refactor update_ball function (call another function to avoid code duplicates)
 
 */
 

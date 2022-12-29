@@ -3,6 +3,7 @@
 static int check_collision(entity_st* ent_1, entity_st* ent_2);
 static int get_ball_impact_pos(entity_st* ball, entity_st* player);
 static float get_dy_from_impact(int impact_pos);
+static int ball_in_goal(entity_st* ball);
 
 void update_entities(entity_st* player1, entity_st* player2, entity_st* ball, float delta)
 {
@@ -33,6 +34,14 @@ void update_ball(entity_st* ball, entity_st* player1, entity_st* player2, float 
 	previous_pos_y = ball->y;
 	ball->x += ball->dx * (ball->speed * delta);
 	ball->y += ball->dy * (ball->speed * delta);
+	if (ball_in_goal(ball))
+	{
+		ball->x = WINDOW_WIDTH / 2 - ball->width / 2;
+		ball->y = WINDOW_HEIGHT / 2 - ball->height / 2;
+		ball->dx = -1;
+		ball->dy = 0;
+		// update score
+	}
 	if (ball->y < MARGIN || ball->y > WINDOW_HEIGHT - MARGIN - ball->height)
 	{
 		ball->y = previous_pos_y;
@@ -92,4 +101,11 @@ static float get_dy_from_impact(int impact_pos)
 	else
 		dy = 1;
 	return dy;
+}
+
+static int ball_in_goal(entity_st* ball)
+{
+	if (ball->x < MARGIN || ball->x + ball->width > WINDOW_WIDTH - MARGIN)
+		return 1;
+	return 0;
 }
