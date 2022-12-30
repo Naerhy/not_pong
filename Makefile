@@ -4,7 +4,7 @@ SRC = ${wildcard src/*.c}
 
 OBJ = ${SRC:.c=.o}
 
-LIB = -lSDL2
+LIB = -lSDL2 -lSDL2_ttf
 
 CC = gcc
 

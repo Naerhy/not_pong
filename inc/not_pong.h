@@ -3,10 +3,12 @@
 
 #include <stdlib.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 #define MARGIN 10
+#define FONT_PATH "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 
 #define sdl_init(a) SDL_Init(a)
 #define sdl_quit() SDL_Quit()
@@ -25,11 +27,18 @@
 #define sdl_render_fill_rect(a, b) SDL_RenderFillRect(a, b)
 #define sdl_get_ticks() SDL_GetTicks()
 
+#define ttf_init() TTF_Init()
+#define ttf_quit() TTF_Quit()
+#define ttf_openfont(a, b) TTF_OpenFont(a, b)
+#define ttf_close_font(a) TTF_CloseFont(a)
+
 typedef SDL_Window sdl_window;
 typedef SDL_Renderer sdl_renderer;
 typedef SDL_Event sdl_event;
 typedef SDL_Texture sdl_texture;
 typedef SDL_Rect sdl_rect;
+
+typedef TTF_Font ttf_font;
 
 typedef enum entity_type_e
 {
@@ -60,6 +69,7 @@ typedef struct game_s
 	entity_st player1;
 	entity_st player2;
 	entity_st ball;
+	ttf_font* font;
 } game_st;
 
 // draw.c

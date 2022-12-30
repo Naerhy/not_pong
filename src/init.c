@@ -5,7 +5,8 @@ int init_game(game_st* game)
 	game->window = NULL;
 	game->renderer = NULL;
 	game->bg_tex = NULL;
-	if (sdl_init(SDL_INIT_VIDEO))
+	game->font = NULL;
+	if (sdl_init(SDL_INIT_VIDEO) || ttf_init())
 		return 0;
 	game->window = sdl_create_window("not_pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 			WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
@@ -17,6 +18,9 @@ int init_game(game_st* game)
 	game->player1 = create_entity(PLAYER1);
 	game->player2 = create_entity(PLAYER2);
 	game->ball = create_entity(BALL);
+	game->font = ttf_openfont(FONT_PATH, 32);
+	if (!game->font)
+		return 0;
 	return 1;
 }
 
